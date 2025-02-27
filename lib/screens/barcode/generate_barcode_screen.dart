@@ -1,15 +1,43 @@
-import 'package:flutter/material.dart';
-import 'package:qr_flutter/qr_flutter.dart';
+import 'dart:io';
 
-class GenerateQrScreen extends StatefulWidget {
+import 'package:barcode/barcode.dart';
+import 'package:flutter/material.dart';
+
+class GenerateBarcodeScreen extends StatefulWidget {
   @override
-  _GenerateQrScreenState createState() => _GenerateQrScreenState();
+  _GenerateBarcodeScreenState createState() => _GenerateBarcodeScreenState();
 }
 
-class _GenerateQrScreenState extends State<GenerateQrScreen> {
+class _GenerateBarcodeScreenState extends State<GenerateBarcodeScreen> {
   TextEditingController _controller = TextEditingController();
 
-  QrImageView? _qrImageView;
+  File? _barcodeFile;
+
+  void _buildBarcode(
+    Barcode bc,
+    String data, {
+    String? filename,
+    double? width,
+    double? height,
+    double? fontHeight,
+  }) {
+    /// Create the Barcode
+    final svg = bc.toSvg(
+      data,
+      width: width ?? 200,
+      height: height ?? 80,
+      fontHeight: fontHeight,
+    );
+
+    // Save the image
+    filename ??= bc.name.replaceAll(RegExp(r'\s'), '-').toLowerCase();
+
+    setState(() {
+      _barcodeFile = File('$filename.svg');
+    });
+
+    _barcodeFile!.writeAsStringSync(svg);
+  }
 
   @override
   void initState() {
@@ -29,7 +57,7 @@ class _GenerateQrScreenState extends State<GenerateQrScreen> {
       appBar: AppBar(
         centerTitle: true,
         title: const Text(
-          "Generate QR Code",
+          "Generate Barcode Code",
         ),
       ),
       body: ListView(
@@ -80,13 +108,19 @@ class _GenerateQrScreenState extends State<GenerateQrScreen> {
                     return;
                   }
 
-                  setState(() {
-                    _qrImageView = QrImageView(
-                      data: _controller.text,
-                      version: QrVersions.auto,
-                      size: 200.0,
-                    );
-                  });
+                  _buildBarcode(
+                    Barcode.code128(),
+                    _controller.text,
+                    filename: DateTime.now()
+                        .toIso8601String()
+                        .replaceAll(":", "")
+                        .replaceAll(".", "")
+                        .replaceAll(" ", "")
+                        .replaceAll("T", "")
+                        .replaceAll("Z", ""),
+                    height: 200,
+                    width: 200,
+                  );
                 },
                 label: const Text(
                   "Generate",
@@ -100,10 +134,12 @@ class _GenerateQrScreenState extends State<GenerateQrScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              if (_qrImageView != null)
+              if (_barcodeFile != null)
                 Container(
                   color: Colors.white,
-                  child: _qrImageView!,
+                  child: Image.file(
+                    _barcodeFile!,
+                  ),
                 ),
             ],
           ),
