@@ -16,11 +16,16 @@ class HomeScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          ElevatedButton.icon(
-            onPressed: () {},
-            label: const Text(
-              "Generate QR Code",
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton.icon(
+                onPressed: () {},
+                label: const Text(
+                  "Generate QR Code",
+                ),
+              ),
+            ],
           ),
         ],
       ),

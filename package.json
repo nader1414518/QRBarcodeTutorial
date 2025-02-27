@@ -10,7 +10,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "commit": "git add . && git commit -am 'Updates' && git pull origin master && git push origin dev-nader",
-    "run": "fvm flutter run --no-enable-impeller"
+    "serve": "fvm flutter run --no-enable-impeller"
   },
   "keywords": [],
   "author": "",
