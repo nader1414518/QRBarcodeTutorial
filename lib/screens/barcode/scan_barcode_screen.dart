@@ -37,7 +37,7 @@ class _ScanBarcodeScreenState extends State<ScanBarcodeScreen> {
               String? res = await SimpleBarcodeScanner.scanBarcode(
                 context,
                 barcodeAppBar: const BarcodeAppBar(
-                  appBarTitle: 'Test',
+                  appBarTitle: 'Scan',
                   centerTitle: false,
                   enableBackButton: true,
                   backButtonIcon: Icon(Icons.arrow_back_ios),
