@@ -35,6 +35,17 @@ class _GenerateQrScreenState extends State<GenerateQrScreen> {
         shrinkWrap: true,
         physics: const ClampingScrollPhysics(),
         children: [
+          const Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text(
+                "Enter content",
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 5,
+          ),
           TextFormField(
             decoration: InputDecoration(
               border: OutlineInputBorder(
@@ -50,6 +61,20 @@ class _GenerateQrScreenState extends State<GenerateQrScreen> {
               hintText: "Content",
               labelText: "Content",
             ),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton.icon(
+                onPressed: () {},
+                label: const Text(
+                  "Generate",
+                ),
+              ),
+            ],
           ),
         ],
       ),
