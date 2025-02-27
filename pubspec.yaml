@@ -10,6 +10,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  path_provider: ^2.1.5
+  flutter_svg: ^2.0.17
   qr_flutter: ^4.1.0
   barcode: ^2.2.9
   qr_code_scanner_plus: ^2.0.10+1

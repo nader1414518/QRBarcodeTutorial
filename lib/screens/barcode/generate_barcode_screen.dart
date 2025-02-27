@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:barcode/barcode.dart';
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
 
 class GenerateBarcodeScreen extends StatefulWidget {
   @override
@@ -13,14 +14,14 @@ class _GenerateBarcodeScreenState extends State<GenerateBarcodeScreen> {
 
   File? _barcodeFile;
 
-  void _buildBarcode(
+  _buildBarcode(
     Barcode bc,
     String data, {
     String? filename,
     double? width,
     double? height,
     double? fontHeight,
-  }) {
+  }) async {
     /// Create the Barcode
     final svg = bc.toSvg(
       data,
@@ -32,8 +33,12 @@ class _GenerateBarcodeScreenState extends State<GenerateBarcodeScreen> {
     // Save the image
     filename ??= bc.name.replaceAll(RegExp(r'\s'), '-').toLowerCase();
 
+    var dir = Platform.isIOS
+        ? await getApplicationDocumentsDirectory()
+        : await getExternalStorageDirectory();
+
     setState(() {
-      _barcodeFile = File('$filename.svg');
+      _barcodeFile = File("${dir!.path}/$filename.svg");
     });
 
     _barcodeFile!.writeAsStringSync(svg);
@@ -57,7 +62,7 @@ class _GenerateBarcodeScreenState extends State<GenerateBarcodeScreen> {
       appBar: AppBar(
         centerTitle: true,
         title: const Text(
-          "Generate Barcode Code",
+          "Generate Barcode",
         ),
       ),
       body: ListView(
@@ -118,7 +123,7 @@ class _GenerateBarcodeScreenState extends State<GenerateBarcodeScreen> {
                         .replaceAll(" ", "")
                         .replaceAll("T", "")
                         .replaceAll("Z", ""),
-                    height: 200,
+                    height: 80,
                     width: 200,
                   );
                 },
