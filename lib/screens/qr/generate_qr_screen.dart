@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 class GenerateQrScreen extends StatefulWidget {
   @override
@@ -6,6 +7,10 @@ class GenerateQrScreen extends StatefulWidget {
 }
 
 class _GenerateQrScreenState extends State<GenerateQrScreen> {
+  TextEditingController controller = TextEditingController();
+
+  QrImageView? _qrImageView;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -61,6 +66,7 @@ class _GenerateQrScreenState extends State<GenerateQrScreen> {
               hintText: "Content",
               labelText: "Content",
             ),
+            controller: controller,
           ),
           const SizedBox(
             height: 10,
@@ -69,11 +75,36 @@ class _GenerateQrScreenState extends State<GenerateQrScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ElevatedButton.icon(
-                onPressed: () {},
+                onPressed: () {
+                  if (controller.text.isEmpty) {
+                    return;
+                  }
+
+                  setState(() {
+                    _qrImageView = QrImageView(
+                      data: controller.text,
+                      version: QrVersions.auto,
+                      size: 200.0,
+                    );
+                  });
+                },
                 label: const Text(
                   "Generate",
                 ),
               ),
+            ],
+          ),
+          const SizedBox(
+            height: 40,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              if (_qrImageView != null)
+                Container(
+                  color: Colors.white,
+                  child: _qrImageView!,
+                ),
             ],
           ),
         ],

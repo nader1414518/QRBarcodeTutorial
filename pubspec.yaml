@@ -10,7 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  qr: ^3.0.2
+  qr_flutter: ^4.1.0
   barcode: ^2.2.9
   qr_code_scanner_plus: ^2.0.10+1
   simple_barcode_scanner: ^0.3.0
