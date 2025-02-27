@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qr_barcode_tutorial/screens/qr/generate_qr_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -46,7 +47,15 @@ class HomeScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ElevatedButton.icon(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return GenerateQrScreen();
+                      },
+                    ),
+                  );
+                },
                 label: const Text(
                   "Generate QR Code",
                 ),
