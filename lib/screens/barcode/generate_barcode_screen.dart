@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:barcode/barcode.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:path_provider/path_provider.dart';
 
 class GenerateBarcodeScreen extends StatefulWidget {
@@ -141,8 +142,12 @@ class _GenerateBarcodeScreenState extends State<GenerateBarcodeScreen> {
             children: [
               if (_barcodeFile != null)
                 Container(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 10,
+                    horizontal: 10,
+                  ),
                   color: Colors.white,
-                  child: Image.file(
+                  child: SvgPicture.file(
                     _barcodeFile!,
                   ),
                 ),
