@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qr_barcode_tutorial/screens/home_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,6 +15,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter QR/Barcode Generator/Scanner',
       theme: ThemeData.dark(),
+      home: const HomeScreen(),
     );
   }
 }
