@@ -53,13 +53,7 @@ class _ScanQrScreenState extends State<ScanQrScreen> {
           "Scan QR Code",
         ),
       ),
-      body: ListView(
-        padding: const EdgeInsets.symmetric(
-          vertical: 10,
-          horizontal: 10,
-        ),
-        shrinkWrap: true,
-        physics: const ClampingScrollPhysics(),
+      body: Column(
         children: [
           const SizedBox(
             height: 20,
@@ -79,9 +73,18 @@ class _ScanQrScreenState extends State<ScanQrScreen> {
             child: Center(
               child: (result != null)
                   ? Text(
-                      'Type: ${result!.format.name}   \nData: ${result!.code}')
+                      'Data: ${result!.code}',
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    )
                   : const Text(
                       'QR Content Here',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
             ),
           )
